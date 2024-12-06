@@ -12,10 +12,12 @@
     "encoding": "^0.1.13",
     "firebase": "^11.0.2",
     "next": "15.0.4",
-    "react": "^19.0.0",
+    "react": "^18.0.0",
+    "react-calendar": "^5.1.0",
     "react-charts": "^3.0.0-beta.57",
-    "react-dom": "^19.0.0",
+    "react-dom": "^18.0.0",
     "react-icons": "^5.4.0",
+    "react-router-dom": "^7.0.2",
     "recharts": "^2.14.1"
   },
   "devDependencies": {

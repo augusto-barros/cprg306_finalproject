@@ -8,10 +8,7 @@ export const Sidebar = () => {
       <div className='overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)] hide-scrollbar'>
       <AccountToggle />
       <RouteSelect />
-        { /* TODO: Main sidebar content */ }
       </div>
-
-      {/* TODO: Toggle button */}
     </div>
   )
 }

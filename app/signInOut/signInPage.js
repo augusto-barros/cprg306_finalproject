@@ -1,16 +1,24 @@
 "use client";
 import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useUserAuth } from "../_utils/auth-context";
 
 export default function SignInPage() {
-    const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+    const { user, gitHubSignIn, googleSignIn, firebaseSignOut } = useUserAuth();
 
-    async function handleSignIn() {
+    async function handleGitHubSignIn() {
         try {
             await gitHubSignIn();
         } catch (error) {
             console.error("GitHub sign-in error:", error);
+        }
+    }
+
+    async function handleGoogleSignIn() {
+        try {
+            await googleSignIn();
+        } catch (error) {
+            console.error("Google sign-in error:", error);
         }
     }
 
@@ -23,27 +31,27 @@ export default function SignInPage() {
     }
 
     return (
-        <main className="flex items-center justify-center min-h-screen bg-gradient-to-b from-green-400 to-teal-500">
-            <div className="w-full max-w-md p-10 space-y-8 bg-white rounded-2xl shadow-lg">
+        <main className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
                 <header className="text-center">
-                    <h1 className="text-5xl font-extrabold text-green-700">MealMetrics</h1>
-                    <p className="mt-3 mb-10 text-lg text-gray-700">Track your meals, calories, and nutrition effortlessly!</p>
+                    <h1 className="text-4xl font-bold text-blue-600">MealMetrics</h1>
+                    <p className="mt-2 text-base text-gray-600">Track your meals, calories, and nutrition effortlessly!</p>
                 </header>
 
                 {user ? (
-                    <div className="text-center space-y-6">
+                    <div className="text-center space-y-4">
                         <div className="flex justify-center">
                             <img
                                 src={user.photoURL || "/default-avatar.png"}
                                 alt={user.displayName || 'User'}
-                                className="w-28 h-28 rounded-full border-4 border-green-500"
+                                className="w-24 h-24 rounded-full border-2 border-blue-500"
                             />
                         </div>
-                        <p className="text-xl font-medium text-gray-800">Welcome, {user.displayName || 'User'}!</p>
+                        <p className="text-lg font-medium text-gray-800">Welcome, {user.displayName || 'User'}!</p>
                         <p className="text-sm text-gray-500">Your email: {user.email || 'N/A'}</p>
                         <div className="mt-4">
                             <Link href="./home">
-                                <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-5 rounded-full transition duration-300 ease-in-out">
+                                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300 ease-in-out">
                                     Start Tracking Your Meals
                                 </button>
                             </Link>
@@ -64,10 +72,18 @@ export default function SignInPage() {
                         <button
                             type="button"
                             className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-5 rounded-full transition duration-300 ease-in-out flex items-center justify-center space-x-2"
-                            onClick={handleSignIn}
+                            onClick={handleGitHubSignIn}
                         >
                             <FaGithub className="text-2xl" />  {/* GitHub Icon */}
                             <span>Sign In with GitHub</span>
+                        </button>
+                        <button
+                            type="button"
+                            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-5 rounded-full transition duration-300 ease-in-out flex items-center justify-center space-x-2"
+                            onClick={handleGoogleSignIn}
+                        >
+                            <FaGoogle className="text-2xl" />  {/* Google Icon */}
+                            <span>Sign In with Google</span>
                         </button>
                     </div>
                 )}
