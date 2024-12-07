@@ -50,7 +50,7 @@ export default function SignInPage() {
                         <p className="text-lg font-medium text-gray-800">Welcome, {user.displayName || 'User'}!</p>
                         <p className="text-sm text-gray-500">Your email: {user.email || 'N/A'}</p>
                         <div className="mt-4">
-                            <Link href="./home">
+                            <Link href="./dashboard">
                                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition duration-300 ease-in-out">
                                     Start Tracking Your Meals
                                 </button>

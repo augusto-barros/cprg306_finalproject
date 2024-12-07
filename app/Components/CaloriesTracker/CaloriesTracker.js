@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TopBar } from '../Dashboard/TopBar';
+import TopBar from '../Dashboard/TopBar';
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";

@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { TopBar } from '../Dashboard/TopBar';
+import TopBar from '../Dashboard/TopBar';
 
 const CaloriesCalendar = () => {
   const [date, setDate] = useState(new Date());

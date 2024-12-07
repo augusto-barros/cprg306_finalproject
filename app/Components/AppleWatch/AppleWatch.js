@@ -1,8 +1,11 @@
 import React from 'react'
+import TopBar from '../Dashboard/TopBar'
 
 const AppleWatch = () => {
   return (
-    <div>Coming soon...</div>
+    <div>
+    <TopBar />
+    Coming soon...</div>
   )
 }
 

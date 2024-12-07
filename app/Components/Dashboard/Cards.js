@@ -1,47 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-// Function to fetch calorie data from Firestore
+
 const fetchCalorieData = async (userId) => {
   const db = getFirestore();
   const entriesRef = collection(db, 'users', userId, 'entries');
 
   const today = new Date();
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - today.getDay());
-  const startOfYear = new Date(today.getFullYear(), 0, 1);
-
   const todayString = today.toISOString().split('T')[0];
-  const startOfWeekString = startOfWeek.toISOString().split('T')[0];
-  const startOfYearString = startOfYear.toISOString().split('T')[0];
 
-  const todayQuery = query(entriesRef, where('date', '==', todayString));
-  const weekQuery = query(entriesRef, where('date', '>=', startOfWeekString));
-  const yearQuery = query(entriesRef, where('date', '>=', startOfYearString));
+  const entriesSnapshot = await getDocs(entriesRef);
 
-  const todaySnapshot = await getDocs(todayQuery);
-  const weekSnapshot = await getDocs(weekQuery);
-  const yearSnapshot = await getDocs(yearQuery);
-
-  const calculateTotalCalories = (snapshot) => {
-    let totalCalories = 0;
+  const calculateTotalCalories = (snapshot, date) => {
+    let totalCalories = 0; // Define totalCalories here
     snapshot.forEach((doc) => {
-      totalCalories += doc.data().totalCalories;
+      const entryDate = doc.data().date;
+      if (entryDate === date) {
+        totalCalories += doc.data().totalCalories;
+      }
     });
     return totalCalories;
   };
 
   return {
-    today: calculateTotalCalories(todaySnapshot),
-    week: calculateTotalCalories(weekSnapshot),
-    year: calculateTotalCalories(yearSnapshot),
+    today: calculateTotalCalories(entriesSnapshot, todayString),
   };
 };
 
 export const Cards = () => {
-  const [calorieData, setCalorieData] = useState({ today: 0, week: 0, year: 0 });
+  const [calorieData, setCalorieData] = useState({ today: 0 });
   const auth = getAuth();
 
   useEffect(() => {
@@ -60,10 +49,8 @@ export const Cards = () => {
   }, [auth]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4">
       <Card title="Today's Calorie Intake" value={calorieData.today} />
-      <Card title="This Week's Calorie Intake" value={calorieData.week} />
-      <Card title="This Year's Calorie Intake" value={calorieData.year} />
     </div>
   );
 };

@@ -7,8 +7,9 @@ export const Sidebar = () => {
     <div>
       <div className='overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)] hide-scrollbar'>
       <AccountToggle />
-      <RouteSelect />
       </div>
     </div>
   )
 }
+
+export default Sidebar
